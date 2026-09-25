@@ -1,0 +1,64 @@
+{
+    "workbench.colorTheme": "Erik Midnight",
+    "workbench.preferredDarkColorTheme": "Erik Midnight",
+    "workbench.iconTheme": "vscode-icons",
+    "window.autoDetectColorScheme": true,
+    "window.systemColorTheme": "dark",
+    "terminal.integrated.gpuAcceleration": "off",
+
+    "vscode_vibrancy.theme": "Custom theme (use imports)",
+    "vscode_vibrancy.preferredDarkTheme": "Custom theme (use imports)",
+    "vscode_vibrancy.enableAutoTheme": true,
+    "vscode_vibrancy.opacity": 0.2,
+    "vscode_vibrancy.disableFramelessWindow": true,
+    "vscode_vibrancy.imports": [
+        "{{STYLES_DIR}}/erik-dark.css",
+        "{{STYLES_DIR}}/erik-dark.json"
+    ],
+
+    "animations.Install-Method": "Custom UI Style",
+    "animations.CursorAnimation": true,
+    "animations.UseCursorColorForCursorAnimation": true,
+    "custom-ui-style.external.imports": [
+        "file:///{{ANIMATIONS_DIR}}/dist/updateHandler.js"
+    ],
+
+    "workbench.colorCustomizations": {
+        "[Erik Midnight]": {
+            "editorPane.background": "#181a1f00",
+            "editorGroupHeader.tabsBackground": "#181a1f00",
+            "editorGroupHeader.noTabsBackground": "#181a1f00",
+            "breadcrumb.background": "#181a1f00",
+            "editorGutter.background": "#181a1f00",
+            "minimap.background": "#181a1f00",
+            "editorOverviewRuler.background": "#181a1f00",
+            "panel.background": "#1e202700",
+            "terminal.background": "#1e202700",
+            "tab.activeBackground": "#181a1f00",
+            "tab.unfocusedActiveBackground": "#181a1f00",
+            "sideBar.background": "#1f212833",
+            "sideBarTitle.background": "#1f212833",
+            "sideBarSectionHeader.background": "#1f212800",
+            "activityBar.background": "#1e202733",
+            "titleBar.activeBackground": "#1e202733",
+            "titleBar.inactiveBackground": "#1e202733",
+            "statusBar.background": "#1e202733",
+            "editor.background": "#181a1f33",
+            "tab.inactiveBackground": "#1f212833",
+            "tab.unfocusedInactiveBackground": "#1f212833",
+            "editorStickyScroll.background": "#181a1fbf",
+            "editorStickyScrollGutter.background": "#181a1fbf",
+            "sideBarStickyScroll.background": "#1f2128bf",
+            "panelStickyScroll.background": "#1e202700",
+            "chat.requestBackground": "#181a1f80",
+            "inlineChat.background": "#181a1fe6",
+            "editorWidget.background": "#181a1fe6",
+            "editorHoverWidget.background": "#181a1fe6",
+            "editorSuggestWidget.background": "#181a1fe6",
+            "notifications.background": "#181a1fe6",
+            "notificationCenterHeader.background": "#181a1fe6",
+            "menu.background": "#181a1fe6",
+            "quickInput.background": "#181a1fe6"
+        }
+    }
+}

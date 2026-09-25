@@ -1,0 +1,5 @@
+# Extensions potrebné pre vzhľad (téma Erik Midnight sa inštaluje z .vsix zvlášť)
+illixion.vscode-vibrancy-continued
+subframe7536.custom-ui-style
+brandonkirbyson.vscode-animations
+vscode-icons-team.vscode-icons
