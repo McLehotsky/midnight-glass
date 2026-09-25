@@ -1,9 +1,12 @@
 {
-  "name": "erik-midnight",
-  "displayName": "Erik Midnight",
+  "name": "midnight-glass",
+  "displayName": "Midnight Glass",
   "description": "A dark theme with vibrancy-ready backgrounds",
-  "version": "0.0.1",
-  "publisher": "Erik Roganský",
+  "version": "1.0.0",
+  "publisher": "martin-lehotsky",
+  "author": {
+    "name": "Martin Lehotsky"
+  },
   "engines": {
     "vscode": "^1.60.0"
   },
@@ -11,9 +14,9 @@
   "contributes": {
     "themes": [
       {
-        "label": "Erik Midnight",
+        "label": "Midnight Glass",
         "uiTheme": "vs-dark",
-        "path": "./themes/erik-midnight-color-theme.json"
+        "path": "./themes/midnight-glass-color-theme.json"
       }
     ]
   }

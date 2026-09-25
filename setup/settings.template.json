@@ -1,6 +1,6 @@
 {
-    "workbench.colorTheme": "Erik Midnight",
-    "workbench.preferredDarkColorTheme": "Erik Midnight",
+    "workbench.colorTheme": "Midnight Glass",
+    "workbench.preferredDarkColorTheme": "Midnight Glass",
     "workbench.iconTheme": "vscode-icons",
     "window.autoDetectColorScheme": true,
     "window.systemColorTheme": "dark",
@@ -12,8 +12,8 @@
     "vscode_vibrancy.opacity": 0.2,
     "vscode_vibrancy.disableFramelessWindow": true,
     "vscode_vibrancy.imports": [
-        "{{STYLES_DIR}}/erik-dark.css",
-        "{{STYLES_DIR}}/erik-dark.json"
+        "{{STYLES_DIR}}/midnight-glass.css",
+        "{{STYLES_DIR}}/midnight-glass.json"
     ],
 
     "animations.Install-Method": "Custom UI Style",
@@ -24,7 +24,7 @@
     ],
 
     "workbench.colorCustomizations": {
-        "[Erik Midnight]": {
+        "[Midnight Glass]": {
             "editorPane.background": "#181a1f00",
             "editorGroupHeader.tabsBackground": "#181a1f00",
             "editorGroupHeader.noTabsBackground": "#181a1f00",

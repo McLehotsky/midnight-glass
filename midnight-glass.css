@@ -1,10 +1,10 @@
-/* Erik Midnight – vibrancy styles
+/* Midnight Glass – vibrancy styles
  * Farby témy: editor 24,26,31 (#181a1f) · sidebar 31,33,40 (#1f2128) · selection 44,49,60 (#2c313c)
  */
 :root {
-  --erik-bg: 24, 26, 31;
-  --erik-side: 31, 33, 40;
-  --erik-hl: 42, 47, 61;
+  --mg-bg: 24, 26, 31;
+  --mg-side: 31, 33, 40;
+  --mg-hl: 42, 47, 61;
 }
 
 /* ---------- základ: všetko priehľadné ---------- */
@@ -47,27 +47,27 @@ body,
 
 .editor-group-container > .title .tabs-container > .tab.active,
 .editor-group-container > .title .breadcrumbs-control {
-  background-color: rgba(var(--erik-hl), 0.3) !important;
+  background-color: rgba(var(--mg-hl), 0.3) !important;
 }
 
 /* ---------- sidebar ---------- */
 .monaco-workbench .part.sidebar {
-  background-color: rgba(var(--erik-side), 0.2) !important;
+  background-color: rgba(var(--mg-side), 0.2) !important;
 }
 
 .monaco-workbench .part.sidebar > .composite.title {
-  background-color: rgba(var(--erik-side), 0.3) !important;
+  background-color: rgba(var(--mg-side), 0.3) !important;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
 .monaco-workbench .part.sidebar .pane-header {
-  background-color: rgba(var(--erik-side), 0.1) !important;
+  background-color: rgba(var(--mg-side), 0.1) !important;
 }
 
 /* ---------- chat / auxiliary bar (Claude Code, Copilot chat) ---------- */
 .monaco-workbench .part.auxiliarybar {
-  background-color: rgba(var(--erik-side), 0.2) !important;
+  background-color: rgba(var(--mg-side), 0.2) !important;
 }
 
 .monaco-workbench .part.auxiliarybar .interactive-session,
@@ -76,18 +76,18 @@ body,
 }
 
 .interactive-session .interactive-input-part .chat-input-container {
-  background-color: rgba(var(--erik-bg), 0.6) !important;
+  background-color: rgba(var(--mg-bg), 0.6) !important;
 }
 
 /* ---------- výber / listy ---------- */
 .monaco-list .monaco-list-row.selected,
 .monaco-list .monaco-list-row.focused,
 .monaco-list.settings-toc-tree:not(.drop-target) .monaco-list-row:hover:not(.selected):not(.focused) {
-  background-color: rgba(var(--erik-hl), 0.6) !important;
+  background-color: rgba(var(--mg-hl), 0.6) !important;
 }
 
 .monaco-list .monaco-list-row.focused {
-  outline-color: rgba(var(--erik-hl), 0.6) !important;
+  outline-color: rgba(var(--mg-hl), 0.6) !important;
 }
 
 .monaco-list-row:hover:not(.selected):not(.focused) {
@@ -100,7 +100,7 @@ body,
 }
 
 .monaco-inputbox {
-  background-color: rgba(var(--erik-side), 0.2) !important;
+  background-color: rgba(var(--mg-side), 0.2) !important;
 }
 
 /* ---------- editor ---------- */
@@ -113,7 +113,7 @@ body,
 }
 
 .monaco-editor .view-overlays .current-line {
-  border-color: rgba(var(--erik-side), 0.2) !important;
+  border-color: rgba(var(--mg-side), 0.2) !important;
 }
 
 /* ---------- terminál ---------- */
@@ -127,7 +127,7 @@ body,
 /* menu bez backdrop-filter: vytvára containing block a podmenu (position: fixed) sa oreže */
 .monaco-menu-container .monaco-menu,
 .context-view .monaco-menu {
-  background-color: rgba(var(--erik-bg), 0.96) !important;
+  background-color: rgba(var(--mg-bg), 0.96) !important;
 }
 
 .quick-input-widget,
@@ -135,7 +135,7 @@ body,
 .suggest-widget,
 .notifications-toasts .notification-toast,
 .notifications-center {
-  background-color: rgba(var(--erik-bg), 0.92) !important;
+  background-color: rgba(var(--mg-bg), 0.92) !important;
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 }
@@ -147,15 +147,15 @@ body,
 }
 
 .monaco-modal-editor-block .part.editor.modal-editor-part {
-  background-color: rgba(var(--erik-bg), 0.96) !important;
+  background-color: rgba(var(--mg-bg), 0.96) !important;
 }
 
 .monaco-modal-editor-block .modal-editor-header,
 .monaco-modal-editor-block .modal-editor-sidebar {
-  background-color: rgba(var(--erik-side), 0.96) !important;
+  background-color: rgba(var(--mg-side), 0.96) !important;
 }
 
 /* fullscreen: vibrancy nefunguje, takže plné pozadie */
 .monaco-workbench.fullscreen {
-  background-color: rgb(var(--erik-bg)) !important;
+  background-color: rgb(var(--mg-bg)) !important;
 }

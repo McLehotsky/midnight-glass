@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-  Nainštaluje Erik Midnight + vibrancy setup do VS Code na tomto PC.
+  Nainštaluje Midnight Glass + vibrancy setup do VS Code na tomto PC.
 
 .EXAMPLE
   .\setup\install.ps1                  # Default profil
@@ -13,7 +13,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 
-$root      = Split-Path $PSScriptRoot -Parent            # priečinok erik-dark
+$root      = Split-Path $PSScriptRoot -Parent            # priečinok midnight-glass
 $userDir   = Join-Path $env:APPDATA 'Code\User'
 $extDir    = Join-Path $env:USERPROFILE '.vscode\extensions'
 $profArgs  = if ($VSProfile) { @('--profile', $VSProfile) } else { @() }
@@ -29,8 +29,8 @@ if (-not $DryRun) {
         Where-Object { $_ -and -not $_.StartsWith('#') } |
         ForEach-Object { code @profArgs --install-extension $_.Trim() --force }
 
-    $vsix = Get-ChildItem $root -Filter 'erik-midnight-*.vsix' | Sort-Object Name | Select-Object -Last 1
-    if (-not $vsix) { throw "Chýba erik-midnight-*.vsix v $root" }
+    $vsix = Get-ChildItem $root -Filter 'midnight-glass-*.vsix' | Sort-Object Name | Select-Object -Last 1
+    if (-not $vsix) { throw "Chýba midnight-glass-*.vsix v $root" }
     code @profArgs --install-extension $vsix.FullName --force
 }
 
@@ -64,7 +64,7 @@ if (-not $current) { $current = [pscustomobject]@{} }
 
 foreach ($p in $new.PSObject.Properties) {
     if ($p.Name -eq 'workbench.colorCustomizations' -and $current.PSObject.Properties[$p.Name]) {
-        # zachová iné témy v colorCustomizations, prepíše len blok [Erik Midnight]
+        # zachová iné témy v colorCustomizations, prepíše len blok [Midnight Glass]
         $cc = $current.($p.Name)
         foreach ($t in $p.Value.PSObject.Properties) { $cc | Add-Member -NotePropertyName $t.Name -NotePropertyValue $t.Value -Force }
     } else {
