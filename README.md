@@ -4,4 +4,6 @@ Tmavá téma pre VS Code pripravená na priehľadné pozadie cez [Vibrancy Conti
 
 Autor: Martin Lehotsky
 
+Založené na téme Erik Midnight od Erika Roganského.
+
 Inštalácia a úpravy sú popísané v súbore `SETUP.md` v priečinku témy.
