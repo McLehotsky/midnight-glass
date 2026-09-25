@@ -1,0 +1,20 @@
+{
+  "name": "erik-midnight",
+  "displayName": "Erik Midnight",
+  "description": "A dark theme with vibrancy-ready backgrounds",
+  "version": "0.0.1",
+  "publisher": "Erik Roganský",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": ["Themes"],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Erik Midnight",
+        "uiTheme": "vs-dark",
+        "path": "./themes/erik-midnight-color-theme.json"
+      }
+    ]
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "name": "Erik Dark Refined",
+  "colors": {
+    "editor.background": "#181a1f",
+    "editor.foreground": "#e0e2e6",
+    "editor.selectionBackground": "#2c313c",
+    "editor.lineHighlightBackground": "#ffffff08",
+    "editorLineNumber.foreground": "#5e6773",
+    "editorCursor.foreground": "#00c9a7",
+    "editorIndentGuide.background1": "#2a2d34",
+    "editorIndentGuide.activeBackground1": "#3a3f48",
+
+    "editorBracketMatch.background": "#2a2f3d",
+    "editorBracketMatch.border": "#26c6da",
+    "editorWhitespace.foreground": "#3f444c",
+
+    "minimap.background": "#1e243a",
+    "editorOverviewRuler.background": "#1d2338",
+    "minimapSlider.background": "#2a304980",
+    "minimapSlider.hoverBackground": "#353b5599",
+    "minimapSlider.activeBackground": "#404761cc",
+
+    "sideBar.background": "#1f2128",
+    "sideBar.foreground": "#d2d6dd",
+    "sideBarTitle.foreground": "#9ea5b3",
+
+    "activityBar.background": "#1e2027",
+    "activityBar.foreground": "#e0e2e6",
+    "activityBarBadge.background": "#26c6da",
+    "activityBarBadge.foreground": "#181a1f",
+
+    "statusBar.background": "#1e2027",
+    "statusBar.foreground": "#aeb4bf",
+
+    "titleBar.activeBackground": "#1e2027",
+    "titleBar.activeForeground": "#e0e2e6",
+    "titleBar.inactiveForeground": "#5e6773",
+
+    "tab.activeBackground": "#181a1f",
+    "tab.inactiveBackground": "#1f2128",
+    "tab.activeForeground": "#ffffff",
+    "tab.inactiveForeground": "#78808e",
+    "tab.border": "#272a31",
+
+    "panel.background": "#1e2027",
+    "panel.border": "#2c2f36",
+
+    "badge.background": "#f9a825",
+    "badge.foreground": "#181a1f",
+
+    "button.background": "#26c6da",
+    "button.foreground": "#181a1f",
+    "button.hoverBackground": "#20b6c8",
+
+    "scrollbarSlider.background": "#2a3049",
+"scrollbarSlider.hoverBackground": "#353b55",
+"scrollbarSlider.activeBackground": "#404761",
+
+    "editorGutter.modifiedBackground": "#fbc02daa",
+    "editorGutter.addedBackground": "#aed581aa",
+    "editorGutter.deletedBackground": "#ef5350aa"
+  },
+
+  "tokenColors": [
+    {
+      "name": "Comments",
+      "scope": ["comment", "punctuation.definition.comment"],
+      "settings": {
+        "foreground": "#7a8592",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "Strings",
+      "scope": ["string"],
+      "settings": {
+        "foreground": "#f9a825"
+      }
+    },
+    {
+      "name": "Keywords",
+      "scope": ["keyword", "storage", "storage.type"],
+      "settings": {
+        "foreground": "#ff7043"
+      }
+    },
+    {
+      "name": "Functions",
+      "scope": ["entity.name.function", "support.function", "variable.function", "meta.function-call"],
+      "settings": {
+        "foreground": "#26c6da"
+      }
+    },
+    {
+      "name": "Variables",
+      "scope": ["variable", "meta.definition.variable.name"],
+      "settings": {
+        "foreground": "#e0e2e6"
+      }
+    },
+    {
+      "name": "Constants & Numbers",
+      "scope": ["constant", "constant.numeric", "constant.language", "constant.character"],
+      "settings": {
+        "foreground": "#fbc02d"
+      }
+    },
+    {
+      "name": "Types & Classes",
+      "scope": ["entity.name.type", "entity.name.class", "support.class", "support.type"],
+      "settings": {
+        "foreground": "#81d4fa"
+      }
+    },
+    {
+      "name": "Operators & Punctuation",
+      "scope": ["keyword.operator", "punctuation"],
+      "settings": {
+        "foreground": "#b0bec5"
+      }
+    },
+    {
+      "name": "Tags & Markup",
+      "scope": ["entity.name.tag", "markup.heading"],
+      "settings": {
+        "foreground": "#ffa726"
+      }
+    },
+    {
+      "name": "Attributes",
+      "scope": ["entity.other.attribute-name"],
+      "settings": {
+        "foreground": "#c5e1a5"
+      }
+    },
+    {
+      "name": "Invalid / Error",
+      "scope": ["invalid", "invalid.illegal"],
+      "settings": {
+        "foreground": "#ef5350"
+      }
+    },
+    {
+      "name": "Decorators / Annotations",
+      "scope": ["meta.decorator", "entity.name.function.decorator", "annotation"],
+      "settings": {
+        "foreground": "#90caf9",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "JSON Keys",
+      "scope": ["support.type.property-name.json"],
+      "settings": {
+        "foreground": "#ffd54f"
+      }
+    }
+  ]
+}

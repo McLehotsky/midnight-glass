@@ -1,0 +1,13 @@
+{
+  "type": {
+    "win10": "under-window",
+    "macos": "under-window"
+  },
+  "background": "181a1f",
+  "opacity": {
+    "win10": 0.2,
+    "macos": 0.2
+  },
+  "colorTheme": "Erik Midnight",
+  "systemColorTheme": "dark"
+}
