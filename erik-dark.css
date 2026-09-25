@@ -1,3 +1,35 @@
+/* Erik Midnight – vibrancy styles
+ * Farby témy: editor 24,26,31 (#181a1f) · sidebar 31,33,40 (#1f2128) · selection 44,49,60 (#2c313c)
+ */
+:root {
+  --erik-bg: 24, 26, 31;
+  --erik-side: 31, 33, 40;
+  --erik-hl: 42, 47, 61;
+}
+
+/* ---------- základ: všetko priehľadné ---------- */
+body,
+.monaco-workbench,
+.monaco-workbench .part,
+.monaco-workbench .part > .content,
+.monaco-workbench .part > .title,
+.monaco-workbench .part.editor > .content .editor-group-container,
+.monaco-workbench .part.editor > .content .editor-group-container > .title,
+.editor-container,
+.monaco-editor,
+.monaco-editor-background,
+.monaco-editor .margin,
+.monaco-editor .inputarea.ime-input,
+.monaco-list .monaco-list-rows,
+.extension-editor,
+.settings-editor,
+.settings-editor > .settings-header,
+.notebookOverlay.notebook-editor,
+.cell-statusbar-container,
+.margin-view-overlays {
+  background: transparent !important;
+}
+
 .scroll-decoration {
   box-shadow: none !important;
 }
@@ -7,47 +39,59 @@
   opacity: 0.4;
 }
 
-.editor-container {
-  background: transparent !important;
+/* ---------- taby ---------- */
+.editor-group-container > .title .tabs-container > .tab {
+  background-color: transparent !important;
+  border: none !important;
 }
 
-.search-view .search-widget .input-box,
-.search-view .search-widget .input-box .monaco-inputbox,
-.monaco-workbench .part.editor > .content > .one-editor-silo > .container > .title .tabs-container > .tab,
-.monaco-editor-background,
-.monaco-editor .margin,
-.monaco-workbench .part > .content,
-.monaco-workbench .editor > .content > .one-editor-silo.editor-one,
-.monaco-workbench .part.editor > .content > .one-editor-silo > .container > .title,
-.monaco-workbench .part > .title,
-.monaco-workbench,
-.monaco-workbench .part,
-body {
-  background: transparent !important;
+.editor-group-container > .title .tabs-container > .tab.active,
+.editor-group-container > .title .breadcrumbs-control {
+  background-color: rgba(var(--erik-hl), 0.3) !important;
 }
 
-.editor-group-container > .tabs {
+/* ---------- sidebar ---------- */
+.monaco-workbench .part.sidebar {
+  background-color: rgba(var(--erik-side), 0.2) !important;
+}
+
+.monaco-workbench .part.sidebar > .composite.title {
+  background-color: rgba(var(--erik-side), 0.3) !important;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.monaco-workbench .part.sidebar .pane-header {
+  background-color: rgba(var(--erik-side), 0.1) !important;
+}
+
+/* ---------- chat / auxiliary bar (Claude Code, Copilot chat) ---------- */
+.monaco-workbench .part.auxiliarybar {
+  background-color: rgba(var(--erik-side), 0.2) !important;
+}
+
+.monaco-workbench .part.auxiliarybar .interactive-session,
+.monaco-workbench .part.auxiliarybar .pane-body {
   background-color: transparent !important;
 }
 
-.editor-group-container > .tabs .tab {
-  background-color: transparent !important;
+.interactive-session .interactive-input-part .chat-input-container {
+  background-color: rgba(var(--erik-bg), 0.6) !important;
 }
 
-.editor-group-container > .tabs .tab.active,
-.editor-group-container > .tabs .monaco-breadcrumbs {
-  background-color: rgba(34, 37, 43, 0.3) !important; /* lineHighlightBackground */
-}
-
-.monaco-list.settings-toc-tree .monaco-list-row.focused {
-  outline-color: rgba(42, 47, 61, 0.6) !important; /* bracketMatch background */
-}
-
-.monaco-list.settings-toc-tree .monaco-list-row.selected,
-.monaco-list.settings-toc-tree .monaco-list-row.focused,
+/* ---------- výber / listy ---------- */
 .monaco-list .monaco-list-row.selected,
+.monaco-list .monaco-list-row.focused,
 .monaco-list.settings-toc-tree:not(.drop-target) .monaco-list-row:hover:not(.selected):not(.focused) {
-  background-color: rgba(42, 47, 61, 0.6) !important; /* bracketMatch background */
+  background-color: rgba(var(--erik-hl), 0.6) !important;
+}
+
+.monaco-list .monaco-list-row.focused {
+  outline-color: rgba(var(--erik-hl), 0.6) !important;
+}
+
+.monaco-list-row:hover:not(.selected):not(.focused) {
+  background-color: transparent !important;
 }
 
 .monaco-list.settings-editor-tree .monaco-list-row {
@@ -56,68 +100,43 @@ body {
 }
 
 .monaco-inputbox {
-  background-color: rgba(31, 33, 40, 0.2) !important; /* panel/sidebar background */
+  background-color: rgba(var(--erik-side), 0.2) !important;
 }
 
+/* ---------- editor ---------- */
 .monaco-editor .selected-text {
-  background-color: rgba(44, 49, 60, 0.6) !important; /* selectionBackground */
+  background-color: rgba(44, 49, 60, 0.6) !important;
 }
 
 .monaco-editor .focused .selected-text {
-  background-color: rgba(38, 79, 120, 0.6) !important; /* accent blue from your cursor? */
+  background-color: rgba(38, 79, 120, 0.6) !important;
 }
 
 .monaco-editor .view-overlays .current-line {
-  border-color: rgba(31, 33, 40, 0.2) !important; /* panel/sidebar background */
+  border-color: rgba(var(--erik-side), 0.2) !important;
 }
 
-.extension-editor,
-.monaco-workbench .part.editor > .content > .one-editor-silo > .container > .title .tabs-container > .tab.active,
-.preferences-editor > .preferences-header,
-.preferences-editor > .preferences-editors-container.side-by-side-preferences-editor .preferences-header-container,
-.monaco-editor,
-.monaco-editor .inputarea.ime-input,
-.monaco-list .monaco-list-rows {
-  background: transparent !important;
-}
-
-.monaco-workbench .part.sidebar {
-  background-color: rgba(31, 33, 40, 0.2) !important; /* sidebar background */
-}
-
-.monaco-workbench .part.sidebar > div:first-child > div:first-child > div:first-child > div:first-child  {
-  background-color: rgba(31, 33, 40, 0.3) !important; /* sidebar top header */
-}
-
-.monaco-workbench .part.sidebar > div:first-child > div:first-child > div:first-child > div:first-child > div {
-  background-color: rgba(31, 33, 40, 0.1) !important; /* sidebar top header */
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-}
-
-
-.editor-group-container > .tabs .tab {
-  border: none !important;
-}
-
+/* ---------- terminál ---------- */
 .terminal-outer-container,
 .xterm-viewport,
 .xterm-rows {
   background-color: transparent !important;
 }
 
+/* ---------- overlaye: musia ostať čitateľné ---------- */
+.quick-input-widget,
+.monaco-menu-container .monaco-menu,
+.context-view .monaco-menu,
+.monaco-hover,
+.suggest-widget,
+.notifications-toasts .notification-toast,
+.notifications-center {
+  background-color: rgba(var(--erik-bg), 0.92) !important;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+/* fullscreen: vibrancy nefunguje, takže plné pozadie */
 .monaco-workbench.fullscreen {
-  background-color: rgb(24, 26, 31) !important; /* editor.background */
-}
-
-.notebookOverlay.notebook-editor,
-.cell-statusbar-container,
-.margin-view-overlays,
-.monaco-list-row:hover:not(.selected):not(.focused) {
-  background-color: transparent !important;
-}
-
-
-.part.auxiliarybar.basepanel.right.pane-composite-part .composer-bar, .part.auxiliarybar.basepanel.right.pane-composite-part .conversations {
-  background-color: rgba(31, 33, 40, 0.2) !important;
+  background-color: rgb(var(--erik-bg)) !important;
 }
