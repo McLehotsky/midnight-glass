@@ -124,9 +124,13 @@ body,
 }
 
 /* ---------- overlaye: musia ostať čitateľné ---------- */
-.quick-input-widget,
+/* menu bez backdrop-filter: vytvára containing block a podmenu (position: fixed) sa oreže */
 .monaco-menu-container .monaco-menu,
-.context-view .monaco-menu,
+.context-view .monaco-menu {
+  background-color: rgba(var(--erik-bg), 0.96) !important;
+}
+
+.quick-input-widget,
 .monaco-hover,
 .suggest-widget,
 .notifications-toasts .notification-toast,
