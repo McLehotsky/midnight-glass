@@ -41,8 +41,8 @@ Sidebar a editor sú na `33`. Plávajúce widgety (command palette, hover, sugge
 ### Úprava témy (.vsix)
 
 ```powershell
-npx @vscode/vsce package --allow-missing-repository --skip-license   # vytvorí midnight-glass-<verzia>.vsix
-code --install-extension .\midnight-glass-1.1.0.vsix --force
+npx @vscode/vsce package   # vytvorí midnight-glass-<verzia>.vsix
+code --install-extension .\midnight-glass-1.1.1.vsix --force
 ```
 
 Pri zmene zvýš `version` v `package.json`.

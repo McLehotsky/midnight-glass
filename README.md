@@ -6,4 +6,6 @@ Autor: Martin Lehotsky
 
 Založené na téme Erik Midnight od Erika Roganského.
 
-Inštalácia a úpravy sú popísané v súbore `SETUP.md` v priečinku témy.
+Inštalácia a úpravy: [SETUP.md](SETUP.md)
+
+Licencia: [MIT](LICENSE)
