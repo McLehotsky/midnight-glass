@@ -1,50 +1,64 @@
-﻿<#
+<#
 .SYNOPSIS
-  Nainštaluje Midnight Glass + vibrancy setup do VS Code na tomto PC.
+  Installs Midnight Glass and its vibrancy setup into VS Code on this machine.
+  Applies to the Default profile and every other existing profile.
 
 .EXAMPLE
-  .\setup\install.ps1                  # Default profil
-  .\setup\install.ps1 -VSProfile WebDev  # konkrétny profil (musí už existovať)
-  .\setup\install.ps1 -DryRun          # len ukáže výsledné settings, nič nezapíše
+  .\setup\install.ps1           # install into all profiles
+  .\setup\install.ps1 -DryRun   # only print the resulting settings, write nothing
 #>
 param(
-    [string]$VSProfile = '',
     [switch]$DryRun
 )
 $ErrorActionPreference = 'Stop'
 
-$root      = Split-Path $PSScriptRoot -Parent            # priečinok midnight-glass
-$userDir   = Join-Path $env:APPDATA 'Code\User'
-$extDir    = Join-Path $env:USERPROFILE '.vscode\extensions'
-$profArgs  = if ($VSProfile) { @('--profile', $VSProfile) } else { @() }
+$root    = Split-Path $PSScriptRoot -Parent            # the midnight-glass folder
+$userDir = Join-Path $env:APPDATA 'Code\User'
+$extDir  = Join-Path $env:USERPROFILE '.vscode\extensions'
 
 if (-not (Get-Command code -ErrorAction SilentlyContinue)) {
-    throw "Príkaz 'code' nie je v PATH. Nainštaluj VS Code (s voľbou 'Add to PATH') a otvor nový terminál."
+    throw "The 'code' command is not on PATH. Install VS Code (with 'Add to PATH') and open a new terminal."
 }
 
-# --- 1. extensions ---------------------------------------------------------
+# --- 1. profiles -------------------------------------------------------------
+# Default plus every profile listed in storage.json. A profile that shares
+# settings or extensions with Default (useDefaultFlags) is skipped for that part.
+$profiles = @([pscustomobject]@{
+    Name = 'Default'; Args = @(); Settings = (Join-Path $userDir 'settings.json')
+    OwnSettings = $true; OwnExtensions = $true
+})
+$storagePath = Join-Path $userDir 'globalStorage\storage.json'
+if (Test-Path $storagePath) {
+    $storage = Get-Content $storagePath -Raw | ConvertFrom-Json
+    foreach ($p in @($storage.userDataProfiles)) {
+        if (-not $p) { continue }
+        $flags = $p.useDefaultFlags
+        $profiles += [pscustomobject]@{
+            Name = $p.name; Args = @('--profile', $p.name)
+            Settings = (Join-Path $userDir "profiles\$($p.location)\settings.json")
+            OwnSettings = -not ($flags -and $flags.settings)
+            OwnExtensions = -not ($flags -and $flags.extensions)
+        }
+    }
+}
+Write-Host "== Profiles: $(($profiles.Name) -join ', ')" -ForegroundColor Cyan
+
+# --- 2. extensions -----------------------------------------------------------
+$extensions = Get-Content (Join-Path $PSScriptRoot 'extensions.txt') |
+    ForEach-Object { $_.Trim() } | Where-Object { $_ -and -not $_.StartsWith('#') }
+$vsix = Get-ChildItem $root -Filter 'midnight-glass-*.vsix' | Sort-Object Name | Select-Object -Last 1
+if (-not $vsix) { throw "No midnight-glass-*.vsix found in $root" }
+
 if (-not $DryRun) {
-    Write-Host '== Extensions' -ForegroundColor Cyan
-    Get-Content (Join-Path $PSScriptRoot 'extensions.txt') |
-        Where-Object { $_ -and -not $_.StartsWith('#') } |
-        ForEach-Object { code @profArgs --install-extension $_.Trim() --force }
-
-    $vsix = Get-ChildItem $root -Filter 'midnight-glass-*.vsix' | Sort-Object Name | Select-Object -Last 1
-    if (-not $vsix) { throw "Chýba midnight-glass-*.vsix v $root" }
-    code @profArgs --install-extension $vsix.FullName --force
+    foreach ($prof in $profiles | Where-Object OwnExtensions) {
+        Write-Host "== Extensions -> $($prof.Name)" -ForegroundColor Cyan
+        $a = $prof.Args
+        foreach ($e in $extensions) { code @a --install-extension $e --force }
+        code @a --install-extension $vsix.FullName --force
+    }
 }
 
-# --- 2. cieľový settings.json ----------------------------------------------
-if ($VSProfile) {
-    $storage  = Get-Content (Join-Path $userDir 'globalStorage\storage.json') -Raw | ConvertFrom-Json
-    $location = ($storage.userDataProfiles | Where-Object name -eq $VSProfile).location
-    if (-not $location) { throw "Profil '$VSProfile' neexistuje. Vytvor ho vo VS Code (Profiles > New Profile) a spusti skript znova." }
-    $settingsPath = Join-Path $userDir "profiles\$location\settings.json"
-} else {
-    $settingsPath = Join-Path $userDir 'settings.json'
-}
-
-# --- 3. šablóna s doplnenými cestami ---------------------------------------
+# --- 3. settings template with resolved paths -------------------------------
 $anim = Get-ChildItem $extDir -Directory -Filter 'brandonkirbyson.vscode-animations-*' -ErrorAction SilentlyContinue |
         Sort-Object Name | Select-Object -Last 1
 $animPath = if ($anim) { $anim.FullName } else { Join-Path $extDir 'brandonkirbyson.vscode-animations-VERSION' }
@@ -52,47 +66,53 @@ $animPath = if ($anim) { $anim.FullName } else { Join-Path $extDir 'brandonkirby
 $tpl = Get-Content (Join-Path $PSScriptRoot 'settings.template.json') -Raw
 $tpl = $tpl.Replace('{{STYLES_DIR}}', ($root -replace '\\', '/'))
 $tpl = $tpl.Replace('{{ANIMATIONS_DIR}}', ($animPath -replace '\\', '/'))
-$new = $tpl | ConvertFrom-Json
 
-# --- 4. merge: prepíšu sa len kľúče zo šablóny, ostatné nastavenia zostanú --
-try {
-    $current = if (Test-Path $settingsPath) { Get-Content $settingsPath -Raw | ConvertFrom-Json } else { $null }
-} catch {
-    throw "Nepodarilo sa prečítať $settingsPath (komentáre alebo čiarka navyše?). Spusti skript cez PowerShell 7 (pwsh) alebo súbor oprav. $_"
-}
-if (-not $current) { $current = [pscustomobject]@{} }
+# --- 4. merge into each profile: only template keys change, the rest stays ---
+foreach ($prof in $profiles | Where-Object OwnSettings) {
+    $settingsPath = $prof.Settings
+    $new = $tpl | ConvertFrom-Json
 
-foreach ($p in $new.PSObject.Properties) {
-    if ($p.Name -eq 'workbench.colorCustomizations' -and $current.PSObject.Properties[$p.Name]) {
-        # zachová iné témy v colorCustomizations, prepíše len blok [Midnight Glass]
-        $cc = $current.($p.Name)
-        foreach ($t in $p.Value.PSObject.Properties) { $cc | Add-Member -NotePropertyName $t.Name -NotePropertyValue $t.Value -Force }
-    } else {
-        $current | Add-Member -NotePropertyName $p.Name -NotePropertyValue $p.Value -Force
+    try {
+        $current = if (Test-Path $settingsPath) { Get-Content $settingsPath -Raw | ConvertFrom-Json } else { $null }
+    } catch {
+        throw "Could not parse $settingsPath (comments or a trailing comma?). Run the script with PowerShell 7 (pwsh) or fix the file. $_"
     }
-}
-$json = $current | ConvertTo-Json -Depth 20
+    if (-not $current) { $current = [pscustomobject]@{} }
 
-if ($DryRun) {
-    Write-Host "== DryRun: $settingsPath by vyzeral takto:" -ForegroundColor Yellow
-    $json
-    return
+    foreach ($p in $new.PSObject.Properties) {
+        if ($p.Name -eq 'workbench.colorCustomizations' -and $current.PSObject.Properties[$p.Name]) {
+            # keep other themes in colorCustomizations, replace only the [Midnight Glass] block
+            $cc = $current.($p.Name)
+            foreach ($t in $p.Value.PSObject.Properties) { $cc | Add-Member -NotePropertyName $t.Name -NotePropertyValue $t.Value -Force }
+        } else {
+            $current | Add-Member -NotePropertyName $p.Name -NotePropertyValue $p.Value -Force
+        }
+    }
+    $json = $current | ConvertTo-Json -Depth 20
+
+    if ($DryRun) {
+        Write-Host "== DryRun [$($prof.Name)]: $settingsPath would become:" -ForegroundColor Yellow
+        $json
+        continue
+    }
+
+    if (Test-Path $settingsPath) {
+        $bak = "$settingsPath.bak-$(Get-Date -Format yyyyMMdd-HHmmss)"
+        Copy-Item $settingsPath $bak
+        Write-Host "Backup of previous settings: $bak"
+    }
+    New-Item -ItemType Directory -Force (Split-Path $settingsPath) | Out-Null
+    [IO.File]::WriteAllText($settingsPath, $json, [Text.UTF8Encoding]::new($false))
+    Write-Host "== Settings written [$($prof.Name)]: $settingsPath" -ForegroundColor Green
 }
 
-if (Test-Path $settingsPath) {
-    $bak = "$settingsPath.bak-$(Get-Date -Format yyyyMMdd-HHmmss)"
-    Copy-Item $settingsPath $bak
-    Write-Host "Záloha pôvodných settings: $bak"
-}
-New-Item -ItemType Directory -Force (Split-Path $settingsPath) | Out-Null
-[IO.File]::WriteAllText($settingsPath, $json, [Text.UTF8Encoding]::new($false))
-Write-Host "== Settings zapísané do $settingsPath" -ForegroundColor Green
+if ($DryRun) { return }
 
 Write-Host @"
 
-Zostáva spraviť vo VS Code (Ctrl+Shift+P):
-  1. Reload Vibrancy            -> reštart VS Code
-  2. Custom UI Style: Reload    -> reštart VS Code
+Remaining steps in VS Code (Ctrl+Shift+P):
+  1. Reload Vibrancy            -> restart VS Code
+  2. Custom UI Style: Reload    -> restart VS Code
   3. 'Installation appears to be corrupt' -> Don't show again
-Po každom update VS Code zopakuj krok 1 (a 2).
+Repeat step 1 (and 2) after every VS Code update.
 "@ -ForegroundColor Cyan

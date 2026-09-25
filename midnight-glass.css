@@ -1,5 +1,5 @@
 /* Midnight Glass – vibrancy styles
- * Neutrálne šedé pozadia: editor 27,27,27 (#1b1b1b) · sidebar 34,34,34 (#222222) · highlight 46,46,46
+ * Neutral grey backgrounds: editor 27,27,27 (#1b1b1b) · sidebar 34,34,34 (#222222) · highlight 46,46,46
  */
 :root {
   --mg-bg: 27, 27, 27;
@@ -7,7 +7,7 @@
   --mg-hl: 46, 46, 46;
 }
 
-/* ---------- základ: všetko priehľadné ---------- */
+/* ---------- base: everything transparent ---------- */
 body,
 .monaco-workbench,
 .monaco-workbench .part,
@@ -39,7 +39,7 @@ body,
   opacity: 0.4;
 }
 
-/* ---------- taby ---------- */
+/* ---------- tabs ---------- */
 .editor-group-container > .title .tabs-container > .tab {
   background-color: transparent !important;
   border: none !important;
@@ -79,7 +79,7 @@ body,
   background-color: rgba(var(--mg-bg), 0.6) !important;
 }
 
-/* ---------- výber / listy ---------- */
+/* ---------- selection / lists ---------- */
 .monaco-list .monaco-list-row.selected,
 .monaco-list .monaco-list-row.focused,
 .monaco-list.settings-toc-tree:not(.drop-target) .monaco-list-row:hover:not(.selected):not(.focused) {
@@ -116,15 +116,15 @@ body,
   border-color: rgba(var(--mg-side), 0.2) !important;
 }
 
-/* ---------- terminál ---------- */
+/* ---------- terminal ---------- */
 .terminal-outer-container,
 .xterm-viewport,
 .xterm-rows {
   background-color: transparent !important;
 }
 
-/* ---------- overlaye: musia ostať čitateľné ---------- */
-/* menu bez backdrop-filter: vytvára containing block a podmenu (position: fixed) sa oreže */
+/* ---------- overlays: must stay readable ---------- */
+/* no backdrop-filter on menus: it creates a containing block and clips the submenu (position: fixed) */
 .monaco-menu-container .monaco-menu,
 .context-view .monaco-menu {
   background-color: rgba(var(--mg-bg), 0.96) !important;
@@ -140,7 +140,7 @@ body,
   backdrop-filter: blur(16px);
 }
 
-/* plávajúci modal editor (napr. settings.json): takmer plné pozadie, nech je čitateľný */
+/* floating modal editor (e.g. settings.json): nearly opaque so it stays readable */
 .monaco-modal-editor-block {
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
@@ -155,7 +155,7 @@ body,
   background-color: rgba(var(--mg-side), 0.96) !important;
 }
 
-/* fullscreen: vibrancy nefunguje, takže plné pozadie */
+/* fullscreen: vibrancy does not apply, so use a solid background */
 .monaco-workbench.fullscreen {
   background-color: rgb(var(--mg-bg)) !important;
 }

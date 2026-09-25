@@ -1,55 +1,59 @@
-# Midnight Glass – transparentný VS Code
+# Midnight Glass – transparent VS Code
 
-## Inštalácia na novom PC
+## Installing on a new machine
 
-1. Nainštaluj VS Code (zaškrtni **Add to PATH**).
-2. Skopíruj celý tento priečinok kamkoľvek (alebo `git clone`).
-3. V tomto priečinku spusti:
+1. Install VS Code (tick **Add to PATH**).
+2. Clone this repository anywhere (or copy the folder).
+3. From the repository folder run:
 
    ```powershell
    powershell -ExecutionPolicy Bypass -File .\setup\install.ps1
    ```
 
-   Pre konkrétny profil: `-VSProfile WebDev` (profil musí už existovať). Pre náhľad bez zápisu: `-DryRun`.
-4. Vo VS Code (`Ctrl+Shift+P`): **Reload Vibrancy** → reštart → **Custom UI Style: Reload** → reštart.
+   Add `-DryRun` to preview the resulting settings without writing anything.
+4. In VS Code (`Ctrl+Shift+P`): **Reload Vibrancy** → restart → **Custom UI Style: Reload** → restart.
 
-Skript nainštaluje extensions a tému, doplní správne cesty k tomuto priečinku a do `settings.json` prepíše len kľúče vzhľadu (ostatné nastavenia nechá). Pôvodný súbor zálohuje ako `settings.json.bak-<dátum>`.
+The script installs the required extensions and the theme, fills in the paths to this folder, and in `settings.json` replaces only the appearance keys (everything else is kept). The previous file is backed up as `settings.json.bak-<date>`.
 
-> Priečinok po inštalácii **nepresúvaj**. Vibrancy načítava CSS priamo odtiaľto. Ak ho presunieš, spusti skript znova.
+It applies the setup to the Default profile and to every other profile that exists on the machine. If you create a new profile later, either base it on Default (**Profiles → New Profile → Copy from: Default**) or run the script again.
 
-## Kde sa čo edituje
+> **Don't move the folder** after installing. Vibrancy loads the CSS straight from here. If you move it, run the script again.
 
-| Čo chceš zmeniť | Kde | Po zmene |
+## Where to change what
+
+| What you want to change | Where | After the change |
 |---|---|---|
-| Priehľadnosť panelov (sidebar, editor, taby, chat, widgety) | `settings.json` → `workbench.colorCustomizations` → `"[Midnight Glass]"` | nič, prejaví sa hneď |
-| Farby syntaxe a základné (nepriehľadné) farby UI | `themes/midnight-glass-color-theme.json` | prebaliť `.vsix` a preinštalovať (nižšie) |
-| Veci, ktoré farby nevedia (blur, priehľadné listy, minimapa, taby bez okrajov) | `midnight-glass.css` | **Reload Vibrancy** + reštart |
-| Farba a sila podkladu okna (tint) | `midnight-glass.json` → `background`, `opacity` | **Reload Vibrancy** + reštart |
-| Celková priehľadnosť okna | `settings.json` → `vscode_vibrancy.opacity` (0–1) | **Reload Vibrancy** + reštart |
-| Typ efektu (acrylic / mica / tabbed) | `settings.json` → `vscode_vibrancy.type` | **Reload Vibrancy** + reštart |
-| Animácie | `settings.json` → `animations.*` | **Custom UI Style: Reload** |
-| Čo inštalačný skript nastaví na novom PC | `setup/settings.template.json`, `setup/extensions.txt` | – |
+| Panel transparency (sidebar, editor, tabs, chat, widgets) | `settings.json` → `workbench.colorCustomizations` → `"[Midnight Glass]"` | nothing, applies immediately |
+| Syntax colors and the base (opaque) UI colors | `themes/midnight-glass-color-theme.json` | rebuild the `.vsix` (below) |
+| Things colors can't do (blur, transparent lists, minimap, borderless tabs) | `midnight-glass.css` | **Reload Vibrancy** + restart |
+| Window backdrop color and strength (tint) | `midnight-glass.json` → `background`, `opacity` | **Reload Vibrancy** + restart |
+| Overall window transparency | `settings.json` → `vscode_vibrancy.opacity` (0–1) | **Reload Vibrancy** + restart |
+| Effect type (acrylic / mica / tabbed) | `settings.json` → `vscode_vibrancy.type` | **Reload Vibrancy** + restart |
+| Animations | `settings.json` → `animations.*` | **Custom UI Style: Reload** |
+| What the install script sets up on a new machine | `setup/settings.template.json`, `setup/extensions.txt` | – |
 
-`settings.json` otvoríš cez `Ctrl+Shift+P` → **Preferences: Open User Settings (JSON)**. Otvorí sa súbor aktuálneho profilu.
+Open `settings.json` with `Ctrl+Shift+P` → **Preferences: Open User Settings (JSON)**.
 
-### Alfa kanál (posledné 2 znaky farby)
+The CSS and the backdrop (`midnight-glass.css`, `midnight-glass.json`) affect every profile at once. `settings.json` belongs to one profile, so to change it everywhere either edit `setup/settings.template.json` and run the script again, or edit each profile.
 
-`#1b1b1b33`: `00` = úplne priehľadné · `33` = 20 % · `80` = 50 % · `bf` = 75 % · `cc` = 80 % · `e6` = 90 % · `ff` = plné.
+### Alpha channel (last 2 characters of a color)
 
-Sidebar a editor sú na `33`. Plávajúce widgety (command palette, hover, suggest) sú na `e6`, aby boli čitateľné.
+`#1b1b1b33`: `00` = fully transparent · `33` = 20 % · `80` = 50 % · `bf` = 75 % · `cc` = 80 % · `e6` = 90 % · `ff` = opaque.
 
-### Úprava témy (.vsix)
+The sidebar and editor use `33`. Floating widgets (command palette, hover, suggest) use `e6` so they stay readable.
+
+### Rebuilding the theme (.vsix)
 
 ```powershell
-npx @vscode/vsce package   # vytvorí midnight-glass-<verzia>.vsix
-code --install-extension .\midnight-glass-1.1.1.vsix --force
+npx @vscode/vsce package   # creates midnight-glass-<version>.vsix
+powershell -ExecutionPolicy Bypass -File .\setup\install.ps1
 ```
 
-Pri zmene zvýš `version` v `package.json`.
+Bump `version` in `package.json` first and delete the old `.vsix`. The script installs the newest `.vsix` into all profiles.
 
-## Známe veci
+## Known issues
 
-- **Po každom update VS Code** spusti **Reload Vibrancy** (a **Custom UI Style: Reload**). Update prepíše súbory VS Code, do ktorých sa efekt vkladá.
-- Hlášku *Installation appears to be corrupt* zavri cez **Don't show again**. Je to normálne.
-- **Neaktívne okno zosivie.** Na Windows 11 to robí systém (acrylic sa pri strate focusu vypne), nie je to chyba v nastaveniach.
-- Nepoužívaj súčasne rozšírenie *Custom CSS and JS Loader*. Kolíduje s Vibrancy.
+- **After every VS Code update** run **Reload Vibrancy** (and **Custom UI Style: Reload**). The update overwrites the VS Code files the effect is injected into.
+- Dismiss *Installation appears to be corrupt* with **Don't show again**. It's expected.
+- **An inactive window turns grey.** Windows 11 disables acrylic when the window loses focus. It's not a settings problem.
+- Don't use the *Custom CSS and JS Loader* extension at the same time. It conflicts with Vibrancy.

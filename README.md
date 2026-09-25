@@ -1,11 +1,11 @@
 # Midnight Glass
 
-Tmavá téma pre VS Code pripravená na priehľadné pozadie cez [Vibrancy Continued](https://marketplace.visualstudio.com/items?itemName=illixion.vscode-vibrancy-continued).
+A dark VS Code theme built for a transparent window with [Vibrancy Continued](https://marketplace.visualstudio.com/items?itemName=illixion.vscode-vibrancy-continued).
 
-Autor: Martin Lehotsky
+Author: Martin Lehotsky
 
-Založené na téme Erik Midnight od Erika Roganského.
+Based on the Erik Midnight theme by Erik Roganský.
 
-Inštalácia a úpravy: [SETUP.md](SETUP.md)
+Installation and customization: [SETUP.md](SETUP.md)
 
-Licencia: [MIT](LICENSE)
+License: [MIT](LICENSE)

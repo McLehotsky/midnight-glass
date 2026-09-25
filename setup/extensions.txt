@@ -1,4 +1,4 @@
-# Extensions potrebné pre vzhľad (téma Midnight Glass sa inštaluje z .vsix zvlášť)
+# Extensions required for the look (the Midnight Glass theme itself is installed from the .vsix)
 illixion.vscode-vibrancy-continued
 subframe7536.custom-ui-style
 brandonkirbyson.vscode-animations
