@@ -136,6 +136,21 @@ body,
   backdrop-filter: blur(16px);
 }
 
+/* plávajúci modal editor (napr. settings.json): takmer plné pozadie, nech je čitateľný */
+.monaco-modal-editor-block {
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.monaco-modal-editor-block .part.editor.modal-editor-part {
+  background-color: rgba(var(--erik-bg), 0.96) !important;
+}
+
+.monaco-modal-editor-block .modal-editor-header,
+.monaco-modal-editor-block .modal-editor-sidebar {
+  background-color: rgba(var(--erik-side), 0.96) !important;
+}
+
 /* fullscreen: vibrancy nefunguje, takže plné pozadie */
 .monaco-workbench.fullscreen {
   background-color: rgb(var(--erik-bg)) !important;
