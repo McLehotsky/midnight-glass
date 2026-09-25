@@ -1,10 +1,10 @@
 /* Midnight Glass – vibrancy styles
- * Farby témy: editor 24,26,31 (#181a1f) · sidebar 31,33,40 (#1f2128) · selection 44,49,60 (#2c313c)
+ * Neutrálne šedé pozadia: editor 27,27,27 (#1b1b1b) · sidebar 34,34,34 (#222222) · highlight 46,46,46
  */
 :root {
-  --mg-bg: 24, 26, 31;
-  --mg-side: 31, 33, 40;
-  --mg-hl: 42, 47, 61;
+  --mg-bg: 27, 27, 27;
+  --mg-side: 34, 34, 34;
+  --mg-hl: 46, 46, 46;
 }
 
 /* ---------- základ: všetko priehľadné ---------- */
@@ -105,7 +105,7 @@ body,
 
 /* ---------- editor ---------- */
 .monaco-editor .selected-text {
-  background-color: rgba(44, 49, 60, 0.6) !important;
+  background-color: rgba(48, 48, 48, 0.6) !important;
 }
 
 .monaco-editor .focused .selected-text {

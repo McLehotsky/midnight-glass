@@ -34,7 +34,7 @@ Skript nainštaluje extensions a tému, doplní správne cesty k tomuto priečin
 
 ### Alfa kanál (posledné 2 znaky farby)
 
-`#181a1f33`: `00` = úplne priehľadné · `33` = 20 % · `80` = 50 % · `bf` = 75 % · `cc` = 80 % · `e6` = 90 % · `ff` = plné.
+`#1b1b1b33`: `00` = úplne priehľadné · `33` = 20 % · `80` = 50 % · `bf` = 75 % · `cc` = 80 % · `e6` = 90 % · `ff` = plné.
 
 Sidebar a editor sú na `33`. Plávajúce widgety (command palette, hover, suggest) sú na `e6`, aby boli čitateľné.
 
@@ -42,7 +42,7 @@ Sidebar a editor sú na `33`. Plávajúce widgety (command palette, hover, sugge
 
 ```powershell
 npx @vscode/vsce package --allow-missing-repository --skip-license   # vytvorí midnight-glass-<verzia>.vsix
-code --install-extension .\midnight-glass-1.0.0.vsix --force
+code --install-extension .\midnight-glass-1.1.0.vsix --force
 ```
 
 Pri zmene zvýš `version` v `package.json`.

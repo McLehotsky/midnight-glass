@@ -3,7 +3,7 @@
     "win10": "under-window",
     "macos": "under-window"
   },
-  "background": "181a1f",
+  "background": "1b1b1b",
   "opacity": {
     "win10": 0.2,
     "macos": 0.2
