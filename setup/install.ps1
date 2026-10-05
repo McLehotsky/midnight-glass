@@ -1,10 +1,10 @@
 <#
 .SYNOPSIS
   Installs Midnight Glass and its vibrancy setup into VS Code on this machine.
-  Applies to the Default profile and every other existing profile.
+  Applies to the Default profile only; other profiles are left untouched.
 
 .EXAMPLE
-  .\setup\install.ps1           # install into all profiles
+  .\setup\install.ps1           # install into the Default profile
   .\setup\install.ps1 -DryRun   # only print the resulting settings, write nothing
 #>
 param(
@@ -20,28 +20,13 @@ if (-not (Get-Command code -ErrorAction SilentlyContinue)) {
     throw "The 'code' command is not on PATH. Install VS Code (with 'Add to PATH') and open a new terminal."
 }
 
-# --- 1. profiles -------------------------------------------------------------
-# Default plus every profile listed in storage.json. A profile that shares
-# settings or extensions with Default (useDefaultFlags) is skipped for that part.
+# --- 1. profile --------------------------------------------------------------
+# Only the Default profile is set up. Other profiles are left untouched.
 $profiles = @([pscustomobject]@{
     Name = 'Default'; Args = @(); Settings = (Join-Path $userDir 'settings.json')
     OwnSettings = $true; OwnExtensions = $true
 })
-$storagePath = Join-Path $userDir 'globalStorage\storage.json'
-if (Test-Path $storagePath) {
-    $storage = Get-Content $storagePath -Raw | ConvertFrom-Json
-    foreach ($p in @($storage.userDataProfiles)) {
-        if (-not $p) { continue }
-        $flags = $p.useDefaultFlags
-        $profiles += [pscustomobject]@{
-            Name = $p.name; Args = @('--profile', $p.name)
-            Settings = (Join-Path $userDir "profiles\$($p.location)\settings.json")
-            OwnSettings = -not ($flags -and $flags.settings)
-            OwnExtensions = -not ($flags -and $flags.extensions)
-        }
-    }
-}
-Write-Host "== Profiles: $(($profiles.Name) -join ', ')" -ForegroundColor Cyan
+Write-Host "== Profile: Default (other profiles are left untouched)" -ForegroundColor Cyan
 
 # --- 2. extensions -----------------------------------------------------------
 $extensions = Get-Content (Join-Path $PSScriptRoot 'extensions.txt') |

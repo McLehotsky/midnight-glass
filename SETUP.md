@@ -15,7 +15,7 @@
 
 The script installs the required extensions and the theme, fills in the paths to this folder, and in `settings.json` replaces only the appearance keys (everything else is kept). The previous file is backed up as `settings.json.bak-<date>`.
 
-It applies the setup to the Default profile and to every other profile that exists on the machine. If you create a new profile later, either base it on Default (**Profiles → New Profile → Copy from: Default**) or run the script again.
+It sets up only the Default profile. Other profiles are left untouched. To get the same look in another profile, create it from Default (**Profiles → New Profile → Copy from: Default**).
 
 > **Don't move the folder** after installing. Vibrancy loads the CSS straight from here. If you move it, run the script again.
 
@@ -34,7 +34,7 @@ It applies the setup to the Default profile and to every other profile that exis
 
 Open `settings.json` with `Ctrl+Shift+P` → **Preferences: Open User Settings (JSON)**.
 
-The CSS and the backdrop (`midnight-glass.css`, `midnight-glass.json`) affect every profile at once. `settings.json` belongs to one profile, so to change it everywhere either edit `setup/settings.template.json` and run the script again, or edit each profile.
+The CSS and the backdrop (`midnight-glass.css`, `midnight-glass.json`) affect every profile at once. `settings.json` belongs to one profile; the install script writes only the Default one.
 
 ### Alpha channel (last 2 characters of a color)
 
@@ -49,7 +49,7 @@ npx @vscode/vsce package   # creates midnight-glass-<version>.vsix
 powershell -ExecutionPolicy Bypass -File .\setup\install.ps1
 ```
 
-Bump `version` in `package.json` first and delete the old `.vsix`. The script installs the newest `.vsix` into all profiles.
+Bump `version` in `package.json` first and delete the old `.vsix`. The script installs the newest `.vsix` into the Default profile.
 
 ## Known issues
 
